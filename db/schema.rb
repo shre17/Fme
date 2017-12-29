@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227085324) do
+ActiveRecord::Schema.define(version: 20171228131019) do
 
   create_table "service_categories", force: :cascade do |t|
     t.string "name"
@@ -33,9 +33,17 @@ ActiveRecord::Schema.define(version: 20171227085324) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.string "contact"
+    t.string "experience"
+    t.string "about_me"
     t.string "role"
+    t.integer "service_category_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["service_category_id"], name: "index_users_on_service_category_id"
   end
 
 end

@@ -51,10 +51,13 @@
 	<div class="professional box">
 		<%= f.hidden_field :role, :value => "professional" %>
 		<div class="form-group" style="margin-right: 900px;">
-			<%= f.select :service_category_id, options_for_select(ServiceCategory.all.collect {|obj| 
-                  	[ obj.name, obj.id ] 
-                   },(f.object.try(:service_category_id))),{prompt: 'Select Sevice Category'}, { :class => 'form-control'} %>
-        </div>
+			<div class="form-group" style=" margin-left:-15px;">
+                <%= f.label :Service_Category, :class => 'control-label col-lg-2' %>
+                <div class="col-lg-10">
+                	<%= f.select(:service_category_id, ServiceCategory.all.collect {|oj| [oj.name, oj.id]}, :prompt => 'Select Sevice Category') %>
+                </div>
+            </div>
+		</div>
 		<div class="field">
 		<%= f.label :Experience %><br />
 		<%= f.text_field :experience, placeholder: "0-5 yrs" %>
@@ -98,10 +101,3 @@
                   <%#= f.select :service_categories, options_for_select(ServiceCategory.all.collect {|obj| 
                   	[ obj.name, obj.id ] 
                    },(f.object.try(:service_category_id))),{prompt: 'Select Sevice Category'}, { :class => 'form-control'} %>
-			<!-- <div class="form-group" style=" margin-left:-15px;">
-                <%#= f.label :Service_Category, :class => 'control-label col-lg-2' %>
-                <div class="col-lg-10">
-                	<%#= f.select(:service_category_id, ServiceCategory.all.collect {|oj| [oj.name, oj.id]}, :prompt => 'Select Sevice Category') %>
-                </div>
-            </div>
-		</div> -->
