@@ -1,0 +1,51 @@
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<h2>Sign up</h2>
+
+<%= form_for(:user, as: :user, url: registration_path(:user)) do |f| %>
+	<div class="field">
+		<%= f.label :First_name %><br />
+		<%= f.text_field :first_name, required: true %>
+	</div>
+
+	<div class="field">
+		<%= f.label :Last_name %><br />
+		<%= f.text_field :last_name, required: true %>
+	</div>
+
+	<div class="field">
+		<%= f.label :Address %><br />
+		<%= f.text_field :address, required: true %>
+	</div>
+
+	<div class="field">
+		<%= f.label :Contact %><br />
+		<%= f.number_field :contact, required: true %>
+	</div>
+
+	<div class="field">
+		<%= f.label :email %><br />
+		<%= f.email_field :email, autofocus: true %>
+	</div>
+
+	<div class="field">
+		<%= f.label :password %>
+		<% if @minimum_password_length %>
+		<em>(<%= @minimum_password_length %> characters minimum)</em>
+		<% end %><br />
+		<%= f.password_field :password, autocomplete: "off" %>
+	</div>
+
+	<div class="field">
+		<%= f.label :password_confirmation %><br />
+		<%= f.password_field :password_confirmation, autocomplete: "off" %>
+	</div>
+
+	<%= f.hidden_field :role, :value => "customer" %>
+	
+	<div class="actions" style="margin-top: 10px;">
+		<%= f.submit "Sign up" %>
+	</div>
+<% end %>
+
+
