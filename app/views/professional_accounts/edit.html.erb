@@ -1,12 +1,15 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
+
+<div class="container">
 <h2>Sign up</h2>
 
-<%= form_for(:user, as: :user, url: registration_path(:user)) do |f| %>
+<%#= form_for(:user, as: :user, url: registration_path(:user)) do |f| %>
+<%= form_for :professional_account, url: :update_account_professional_account, method: :patch, :html => { :class => "form-horizontal " } do |f| %>
 
 <div class="field">
 	<%= f.label :First_name %><br />
-	<%= f.text_field :first_name, required: true %>
+	<%= f.text_field :first_name, required: true, autofocus: true %>
 </div>
 
 <div class="field">
@@ -24,10 +27,32 @@
 	<%= f.number_field :contact, required: true %>
 </div>
 
-<div class="form-group">
-	<div class="form-group" style=" margin-left:-15px;">
-	<%= f.label :Service_Category, :class => 'control-label col-lg-2', required: true %>
-	<div class="col-lg-10">
+<div class="field">
+	<%= f.label :Languages %><br />
+	<%Language.all.each do |lang|%>
+	<label>
+		<%= f.check_box(:language, {multiple: true}, lang.id, nil) %>                 
+		<%= lang.lang_name %> 
+	</label>
+	<br>
+	<%end%>
+</div>
+
+<div class="field">
+	<%= f.label :Locations %><br />
+    <%Location.all.each do |loc|%>
+	<label>
+		<%= f.check_box(:location, {multiple: true}, loc.id, nil) %>                 
+		<%= loc.loc_name %> 
+	</label>
+	<br>
+	<%end%>
+</div>
+
+<div class="field">
+	<div class="form-group" style="margin-left: 1px;">
+	<%= f.label :Service_Category, required: true %>
+	<div>
 		<%= f.select(:service_category_id, ServiceCategory.all.collect {|oj| [oj.name, oj.id]}, :prompt =>       'Select Sevice Category') %>
 	</div>
 </div>
@@ -37,15 +62,19 @@
 	<%= f.text_field :experience, placeholder: "0-5 yrs", required: true %>
 </div>
 
+<div class="field">
+	<%= f.label :profile_picture %><br />
+	<%= f.file_field :profile_pic %>
+</div>
 
 <div class="field">
-	<%= f.label :About_me %><br />
+	<%= f.label :about_me %><br />
 	<%= f.text_area :about_me, required: true %>
 </div>
 
 <div class="field">
 	<%= f.label :email %><br />
-	<%= f.email_field :email, autofocus: true %>
+	<%= f.email_field :email, value: @user.email %>
 </div>
 
 <div class="field">
@@ -68,3 +97,4 @@
 </div>
 
 <% end %>
+</div>

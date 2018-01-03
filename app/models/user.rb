@@ -1,12 +1,16 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-  belongs_to :service_category, optional: true     
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true       
-  # validates :contact, presence: true
-  # validates :service_category, presence: true
-  # validates :experience, presence: true
+  #:lockable, :validatable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, 
+         :recoverable, :rememberable, :trackable, :confirmable
+  belongs_to :service_category, optional: true
+
+  mount_uploader :profile_pic, PictureUploader
+
+  has_many :user_languages, dependent: :destroy
+  has_many :languages, through: :user_languages   
+
+  has_many :user_locations, dependent: :destroy
+  has_many :locations, through: :user_locations   
+  
 end
