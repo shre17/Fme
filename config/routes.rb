@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :professional_accounts do     
 	member do      
 	 patch :update_account   
-	  end  
+	 end  
 	end
 	
 end

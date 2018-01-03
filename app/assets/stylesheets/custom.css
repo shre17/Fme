@@ -1,8 +1,12 @@
+.fme
+{
+ margin-top: 40px; 
+ font-weight: bold;
+}
 .fme ul li
   {
    list-style-type: none;
    margin-top: 20px;
-
   }
 .demopadding {
   /*margin:50px auto;*/
@@ -75,3 +79,67 @@
         display: none;
    }
 
+.nav-drp.nav-dp.account 
+{
+margin-left: 850px;
+margin-top: 15px;
+}
+
+.background
+{
+  padding-top: 60px;
+ padding-bottom: 100px;
+}
+
+.h2background
+{
+  text-align: center; 
+  color: black; 
+  text-shadow: 2px 2px 2px white
+}
+.input-group
+{
+  margin-left: 300px;
+}
+.profile
+{
+   width: 100%; 
+   margin-top: 50px;
+}
+.rprofile
+{
+ margin-left: 90px;
+}
+.image h4
+{
+  margin-left: 60px;
+}
+.image input
+{
+  margin-left: 40px;
+}
+.account 
+{
+  margin-left: 850px;
+  margin-top: 15px;
+}
+.user 
+{
+  margin-left: 20px; 
+  margin-right: 20px;
+}
+.f1
+{ 
+  width: 100%;
+  margin-top: 50px;
+  border-top: 1px solid lightgrey;
+}
+
+.f1.row
+{
+  margin-left: 50px;
+}
+.img
+{
+ margin-top: 20px;
+}

@@ -11,6 +11,11 @@ class ProfessionalAccountsController < ApplicationController
 					@user.user_languages.create(language_id: i)
 				end
 			end
+			if params[:professional_account][:location].present?
+				params[:professional_account][:location].each do |i|
+					@user.user_locations.create(location_id: i)
+				end
+			end
 			sign_in(@user, :bypass_sign_in => true)   
 			redirect_to root_path     
 		end  

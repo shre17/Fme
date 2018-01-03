@@ -4,48 +4,50 @@
 <div class="container">
 <h2>Sign up</h2>
 
-<%#= form_for(:user, as: :user, url: registration_path(:user)) do |f| %>
 <%= form_for :professional_account, url: :update_account_professional_account, method: :patch, :html => { :class => "form-horizontal " } do |f| %>
 
 <div class="field">
 	<%= f.label :First_name %><br />
-	<%= f.text_field :first_name, required: true, autofocus: true %>
+	<%= f.text_field :first_name, required: true, autofocus: true, value: @user.first_name %>
 </div>
 
 <div class="field">
 	<%= f.label :Last_name %><br />
-	<%= f.text_field :last_name, required: true %>
+	<%= f.text_field :last_name, required: true, value: @user.last_name %>
 </div>
 
 <div class="field">
 	<%= f.label :Address %><br />
-	<%= f.text_field :address, required: true %>
+	<%= f.text_field :address, required: true, value: @user.address %>
 </div>
 
 <div class="field">
 	<%= f.label :Contact %><br />
-	<%= f.number_field :contact, required: true %>
+	<%= f.number_field :contact, required: true, value: @user.contact%>
 </div>
 
-<div class="field">
+<div class="container">
 	<%= f.label :Languages %><br />
 	<%Language.all.each do |lang|%>
-	<label>
-		<%= f.check_box(:language, {multiple: true}, lang.id, nil) %>                 
-		<%= lang.lang_name %> 
-	</label>
-	<br>
+	<div class="col-md-4">
+		<label>
+			<%= f.check_box(:language, {multiple: true}, lang.id, nil) %>
+			<%= lang.lang_name %> 
+		</label>
+    </div>
 	<%end%>
 </div>
 
-<div class="field">
+<div class="container">
 	<%= f.label :Locations %><br />
     <%Location.all.each do |loc|%>
-	<label>
-		<%= f.check_box(:location, {multiple: true}, loc.id, nil) %>                 
-		<%= loc.loc_name %> 
-	</label>
-	<br>
+    <div class="col-md-4">
+		<label>
+			<%#= f.check_box(:location, {multiple: true}, loc.id, nil) %> 
+			 <%= check_box_tag "loc_names[]", loc.id%>
+			<%= loc.loc_name %> 
+		</label>
+	 </div>
 	<%end%>
 </div>
 
@@ -53,23 +55,23 @@
 	<div class="form-group" style="margin-left: 1px;">
 	<%= f.label :Service_Category, required: true %>
 	<div>
-		<%= f.select(:service_category_id, ServiceCategory.all.collect {|oj| [oj.name, oj.id]}, :prompt =>       'Select Sevice Category') %>
+		<%= f.select(:service_category_id, ServiceCategory.all.collect {|oj| [oj.name, oj.id]}, :prompt =>       'Select Sevice Category')%>
 	</div>
 </div>
 
 <div class="field" style="margin-top: 10px;">
 	<%= f.label :Experience %><br />
-	<%= f.text_field :experience, placeholder: "0-5 yrs", required: true %>
+	<%= f.text_field :experience, placeholder: "0-5 yrs", required: true, value: @user.experience %>
 </div>
 
 <div class="field">
 	<%= f.label :profile_picture %><br />
-	<%= f.file_field :profile_pic %>
+	<%= f.file_field :profile_pic, value: @user.profile_pic %>
 </div>
 
 <div class="field">
 	<%= f.label :about_me %><br />
-	<%= f.text_area :about_me, required: true %>
+	<%= f.text_area :about_me, required: true, value: @user.about_me %>
 </div>
 
 <div class="field">
