@@ -1,12 +1,26 @@
-<h2>Sign up</h2>
+<div class="container" id="signcontainer">
+	<h2 class="signup">Sign up here</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-<%= devise_error_messages! %>
-
-	<div class="field">
-		<%= f.label :email %><br />
-		<%= f.email_field :email, autofocus: true %>
+	<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+	
+	<div class="field form-group sign">
+		<%= f.label :email %>
+		<%= f.email_field :email,  autofocus: true, required: true, placeholder: "e.g. someone@example.com", class: "form-control input-lg"%>
 	</div>
+
+	<div class="actions signbtn">
+		<%= f.submit "Sign up", class: "btn btn-md btn-primary sign" %>
+	</div>
+	<% end %>
+
+	<div class="signlink">
+		<%= render "users/shared/links" %>
+	</div>
+
+</div>
+
+
+
 
 	<!-- <div class="field">
 		<%#= f.label :password %>
@@ -20,10 +34,3 @@
 		<%#= f.label :password_confirmation %><br />
 		<%#= f.password_field :password_confirmation, autocomplete: "off" %>
 	</div> -->
-
-	<div class="actions" style="margin-top: 10px;">
-		<%= f.submit "Sign up" %>
-	</div>
-<% end %>
-
-<%= render "users/shared/links" %>

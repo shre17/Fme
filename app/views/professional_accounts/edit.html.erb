@@ -1,128 +1,204 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-<div class="container">
+
+<div class="container" style="width: 80%;">
+	
 	<% if user_signed_in?%>
-     <h2>Edit <%= current_user.first_name.to_s.humanize %></h2>
-   <%else%>
-   <h2>Update Profile</h2>
-   <%end%>
+	<h1>Edit <%= current_user.first_name.to_s.humanize %></h1>
+	<%else%>
+	<h2>Update Profile</h2>
+	<%end%>
 
-<%= form_for :professional_account, url: :update_account_professional_account, method: :patch, :html => { :class => "form-horizontal " } do |f| %>
+	<%= form_for :professional_account, url: :update_account_professional_account, method: :patch, :html => { :class => "form-horizontal" } do |f| %>
 
-<div class="field">
-	<%= f.label :First_name %><br />
-	<%= f.text_field :first_name, required: true, autofocus: true, value: @user.first_name %>
-</div>
+	<div class="field form-group">
+		<%= f.label :First_name %><br />
+		<%= f.text_field :first_name, required: true, autofocus: true, value: @user.first_name, class: "form-control" %>
+	</div>
 
-<div class="field">
-	<%= f.label :Last_name %><br />
-	<%= f.text_field :last_name, required: true, value: @user.last_name %>
-</div>
+	<div class="field form-group">
+		<%= f.label :Last_name %><br />
+		<%= f.text_field :last_name, required: true, value: @user.last_name, class: "form-control" %>
+	</div>
 
-<div class="field">
-	<%= f.label :Address %><br />
-	<%= f.text_field :address, required: true, value: @user.address %>
-</div>
+	<div class="field form-group">
+		<%= f.label :Address %><br />
+		<%= f.text_field :address, required: true, value: @user.address, class: "form-control" %>
+	</div>
 
-<div class="field">
-	<%= f.label :Contact %><br />
-	<%= f.number_field :contact, required: true, value: @user.contact%>
-</div>
+	<div class="field form-group">
+		<%= f.label :Contact %><br />
+		<%= f.number_field :contact, required: true, value: @user.contact, class: "form-control"%>
+	</div>
 
-<div class="container">
-	<%= f.label :Languages %><br />
-	<%Language.all.each do |lang|%>
-	 <% if (@user.id.present?) && (@user.languages.ids.include? lang.id) %>
-	 <div class="col-md-4">
-		  <label>
-		      <input type="checkbox" name="user[user_languages_remove][]" value="<%= lang.id %>" checked>
-		      <%= lang.lang_name %>
-		      <span class="checkmark"></span>
-	      </label><br>
+	<div class="check-box-section form-group">
+		<div id="languages">
+			<div class="field">
+				<h3>Languages</h3>
+				<% Language.all.each do |lang|%>
+				<% if (@user.id.present?) && (@user.languages.ids.include? lang.id) %>
+				<div class="col-md-4 col-xs-6 checkbox-cols">
+					<label class="custom-checkbox">
+						<input type="checkbox" name="user[user_languages_remove][]" value="<%= lang.id %>" checked>
+						<%= lang.lang_name %>
+						<span class="checkmark"></span>
+					</label><br>
+				</div>
+				<% else %>
+				<div class="col-md-4 col-xs-6 checkbox-cols">
+					<label class="custom-checkbox">
+						<%= f.check_box(:language, {multiple: true}, lang.id, nil) %> 
+						<%= lang.lang_name %>
+						<span class="checkmark"></span>
+					</label><br>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="check-box-section form-group">
+		<div id="locations">
+			<div class="field">
+				<h3>Locations</h3>
+				<% Location.all.each do |loc|%>
+				<% if (@user.id.present?) && (@user.locations.ids.include? loc.id) %>
+				<div class="col-md-4 col-xs-6 checkbox-cols">
+					<label class="custom-checkbox">
+						<input type="checkbox" name="user[user_locations_remove][]" value="<%= loc.id %>" checked>
+						<%= loc.loc_name %>
+						<span class="checkmark"></span>
+					</label><br>
+				</div>
+				<% else %>
+				<div class="col-md-4 col-xs-6 checkbox-cols">
+					<label class="custom-checkbox">
+						<%= f.check_box(:location, {multiple: true}, loc.id, nil) %> 
+						<%= loc.loc_name %>
+						<span class="checkmark"></span>
+					</label><br>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="field form-group">
+		<div class="form-group" style="margin-left: 1px;"></div>
+		<%= f.label :Service_Category%>
+		<div>
+
+			<%#= f.select_tag "Service_Category", options_from_collection_for_select(@users, :user_id, :model, params[:id].to_i) %>
+
+			<%= f.select :service_category_id, options_for_select(	ServiceCategory.all.collect {|obj| [obj.name, obj.id]}, 
+			(f.object.try(:service_category_id))), {:prompt =>'Select Sevice Category'},{ :class => 'form-control'}%>
+		</div>
+	</div>
+
+	<div class="field form-group" style="margin-top: 10px;">
+		<%= f.label :Experience %><br />
+		<%= f.text_field :experience, placeholder: "0-5 yrs", required: true, value: @user.experience, class: "form-control" %>
+	</div>
+
+	<div class="field form-group">
+		<%= f.label :profile_picture %><br />
+		<%= f.file_field :profile_pic, value: @user.profile_pic %>
+	</div>
+
+	<div class="field form-group">
+		<%= f.label :about_me %><br />
+		<%= f.text_area :about_me, required: true, value: @user.about_me,placeholder: "Enter here.. (limited to 500 characters)", class: "form-control", id: "my-input",maxlength: "500" %>
+		<span id="remainingC"></span>
+	</div> 
+
+	<div class="field form-group">
+		<%= f.label :email %><br />
+		<%= f.email_field :email, value: @user.email, class: "form-control" %>
+	</div>
+
+	<div class="field form-group">
+		<%= f.label :password %>
+		<% if @minimum_password_length %>
+		<em>(<%= @minimum_password_length %> characters minimum)</em>
+		<% end %><br />
+		<%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+	</div>
+
+	<div class="field form-group">
+		<%= f.label :password_confirmation %><br />
+		<%= f.password_field :password_confirmation, autocomplete: "off" , class: "form-control"%>
+	</div>
+
+	<%= f.hidden_field :role, :value => "professional" %>
+
+	<% if user_signed_in?%>
+	<div class="actions" style="margin-top: 10px;">
+		<%= f.submit "Update",class: "btn btn-lg btn-primary" %>
 	</div>
 	<%else%>
-	<div class="col-md-4">
-		<label>
-			<%= f.check_box(:language, {multiple: true}, lang.id, nil) %>
-			<%= lang.lang_name %> 
-		</label>
-    </div>
-	<%end%>
-	<%end%>
-</div>
-
-<div class="container">
-	<%= f.label :Locations %><br />
-    <%Location.all.each do |loc|%>
-    <% if (@user.id.present?) && (@user.locations.ids.include? loc.id) %>
-    <div class="col-md-4">
-		  <label>
-		      <input type="checkbox" name="user[user_locations_remove][]" value="<%= loc.id %>" checked>
-		      <%= loc.loc_name %>
-		      <span class="checkmark"></span>
-	      </label><br>
+	<div class="actions" style="margin-top: 10px;">
+		<%= f.submit "Sign up",class: "btn btn-lg btn-primary" %>
 	</div>
-	<%else%>
-    <div class="col-md-4">
-		<label>
-			<%= f.check_box(:location, {multiple: true}, loc.id, nil) %> 
-			<%= loc.loc_name %> 
-		</label>
-	 </div>
 	<%end%>
-	<%end%>
+
+	<% end %>
 </div>
 
-<div class="field">
-	<div class="form-group" style="margin-left: 1px;"></div>
-	<%= f.label :Service_Category %>
-	<div>
 
-		<%= f.select :service_category_id, options_for_select(	ServiceCategory.all.collect {|obj| [obj.name, obj.id]}, 
-				(f.object.try(:service_category_id))), {:prompt =>'Select Sevice Category'}, {} %>
-	</div>
-</div>
+<script type="text/javascript">
 
-<div class="field" style="margin-top: 10px;">
-	<%= f.label :Experience %><br />
-	<%= f.text_field :experience, placeholder: "0-5 yrs", required: true, value: @user.experience %>
-</div>
+	$(document).ready(function() {
+		var len = 0;
+		var maxchar = 500;
 
-<div class="field">
-	<%= f.label :profile_picture %><br />
-	<%= f.file_field :profile_pic, value: @user.profile_pic %>
-</div>
+		$( '#my-input' ).keyup(function(){
+			len = this.value.length
+			if(len > maxchar){
+				return false;
+			}
+			else if (len > 0) {
+				$( "#remainingC" ).html( "Remaining characters: " +( maxchar - len ) + "/500" );
+			}
+			else {
+				$( "#remainingC" ).html( "Remaining characters: " +( maxchar ) + "/500");
+			}
+		})
+	})
+</script>
 
-<div class="field">
-	<%= f.label :about_me %><br />
-	<%= f.text_area :about_me, required: true, value: @user.about_me %>
-</div>
+<!-- <script type="text/javascript">
+$('textarea').keypress(function(){
 
-<div class="field">
-	<%= f.label :email %><br />
-	<%= f.email_field :email, value: @user.email %>
-</div>
-
-<div class="field">
-	<%= f.label :password %>
-	<% if @minimum_password_length %>
-	<em>(<%= @minimum_password_length %> characters minimum)</em>
-	<% end %><br />
-	<%= f.password_field :password, autocomplete: "off" %>
-</div>
-
-<div class="field">
-	<%= f.label :password_confirmation %><br />
-	<%= f.password_field :password_confirmation, autocomplete: "off" %>
-</div>
-
-<%= f.hidden_field :role, :value => "professional" %>
-
-<div class="actions" style="margin-top: 10px;">
-	<%= f.submit "Sign up" %>
-</div>
-
-<% end %>
-</div>
+		if(this.value.length > 160){
+				return false;
+		}
+		$("#remainingC").html("Remaining characters : " +(160 - this.value.length));
+})
+</script>
+-->
+<!-- <input disabled  maxlength="3" size="3" value="100" id="counter">
+<textarea onkeyup="textCounter(this,'counter',100);" id="message">
+</textarea>
+<script>
+function textCounter(field,field2,maxlimit)
+{
+ var countfield = document.getElementById(field2);
+ if ( field.value.length > maxlimit ) {
+	field.value = field.value.substring( 0, maxlimit );
+	return false;
+ } else {
+	countfield.value = maxlimit - field.value.length;
+ }
+}
+</script> -->
 			 <%#= check_box_tag "loc_names[]", loc.id%>

@@ -143,3 +143,124 @@ margin-top: 15px;
 {
  margin-top: 20px;
 }
+
+.custom-checkbox {
+   position: relative;
+   padding-left: 35px;
+   line-height: 20px;
+ }
+
+ .custom-checkbox input {
+   position: absolute;
+   opacity: 0;
+ }
+
+ .checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 18px;
+   width: 18px;
+   background-color: transparent;
+   border: 1px solid #6d6d6d;
+ }
+
+ .custom-checkbox input:checked ~ .checkmark {
+   background:  #ff214f;
+   border: 1px solid #526362;
+ }
+ .custom-checkbox .checkmark:after {
+   left: 6px;
+   top: 2px;
+   width: 5px;
+   height: 10px;
+   border: solid white;
+   border-width: 0 3px 3px 0;
+   -webkit-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   transform: rotate(45deg);
+ }
+ .custom-checkbox input:checked ~ .checkmark:after, .custom-checkbox input:checked ~ .radiobtn:after {
+   display: block;
+ }
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ #company_services .checkbox-cols {
+   margin-bottom: 2%;
+ }
+
+.signup
+{
+  text-align: center;
+  margin-top: 40px;
+}
+.sign
+{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+.signbtn
+{
+  text-align: center;
+  margin-bottom: 50px;
+}
+#signcontainer
+{
+  width: 60%;
+  border: 1px solid #CCCCCC;
+
+}
+.signlink
+{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form-control.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 25px;
+    border-color: grey;
+    margin-top: 10px;
+}
+
+.btn.btn-md.btn-primary.sign{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 20px;
+}
+
+.logbtn
+{
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+/*.form-control.log 
+{
+     border-radius: 25px;
+}*/

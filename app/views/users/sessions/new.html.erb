@@ -1,27 +1,39 @@
-<h2>Log in</h2>
+<div class="container" id="signcontainer">
+	<h2 class="signup">Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<%= devise_error_messages! %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+	<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+	<%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+	<div class="field form-group sign">
+		<%= f.label :email %><br />
+		<%= f.email_field :email, autofocus: true, required: true, placeholder: "e.g. someone@example.com", class: "form-control input-lg" %>
+	</div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
+	<div class="field form-group sign">
+		<%= f.label :password %>
+		<%= f.password_field :password, autocomplete: "off", class: "form-control input-lg" %>
+	</div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+	<% if devise_mapping.rememberable? -%>
+		<div class="check-box-section form-group">
+			<div class="field form-group" style="margin-left: 180px; margin-top: 20px;">
+				<div class="checkbox-cols">
+					<label class="custom-checkbox">
+						<%= f.check_box :remember_me %>
+						<%= f.label :remember_me %>
+						<span class="checkmark"></span>
+					</label><br>
+				</div>
+			</div>
+		</div>
+	<% end -%>
 
-<%= render "users/shared/links" %>
+	<div class="actions logbtn">
+		<%= f.submit "Sign up",class: "btn btn-md btn-primary sign" %>
+	</div>
+	<% end %>
+
+	<div class="signlink">
+		<%= render "users/shared/links" %>
+	</div>
+</div>
